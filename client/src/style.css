@@ -1,0 +1,126 @@
+/* 전역 스타일 및 테마 설정 */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;                     /* 줄 간격 */
+  font-weight: 400;                     /* 기본 글자 두께 */
+
+  color-scheme: light dark;             /* 라이트/다크 모드 지원 */
+  color: #000000;
+  background-color: #FFFFFF;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;   /* 가독성 최적화 */
+  -webkit-font-smoothing: antialiased;  /* 웹킷 폰트 부드럽게 */
+  -moz-osx-font-smoothing: grayscale;   /* macOS 폰트 렌더링 */
+}
+
+/* 링크 스타일 */
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;             /* 밑줄 등 부모 스타일 상속 */
+}
+
+/* 링크 호버 효과 */
+a:hover {
+  color: #535bf2;
+}
+
+/* 전체 페이지 레이아웃 */
+body {
+  margin: 0;                            /* 기본 여백 제거 */
+  display: flex;
+  place-items: center;                  /* 가로·세로 중앙 정렬 */
+  min-width: 320px;                     /* 최소 화면 너비 */
+  min-height: 100vh;                    /* 화면 전체 높이 */
+}
+
+/* 제목 스타일 */
+h1 {
+  font-size: 3.2em;                     /* 큰 제목 크기 */
+  line-height: 1.1;                     /* 제목 줄 간격 */
+}
+
+/* 메인 버튼 */
+button {
+  border-radius: 10px;                  /* 버튼 모서리를 둥글게 */
+  border: none;                         /* 기본 테두리 제거 */
+  padding: 0.7em 1.5em;                 /* 상하 / 좌우 여백 */
+  font-size: 1em;
+  font-weight: 600;
+  font-family: inherit;
+  color: #fff;
+  background: linear-gradient(135deg, #6a8fe7, #285ddc);
+  cursor: pointer;
+  user-select: none;                    /* 텍스트 선택 방지 */
+
+  box-shadow:                           /* 입체감을 주는 그림자 */
+    0 6px 15px rgba(106, 143, 231, 0.35),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+
+  transition:                           /* 애니메이션 효과 설정 */
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+}
+
+/* 버튼 호버 효과 */
+button:hover {
+  transform: translateY(-2px);        /* 살짝 위로 떠오르는 효과 */
+  box-shadow: 
+    0 10px 25px rgba(106, 143, 231, 0.45),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* 버튼 클릭 상태 */
+button:active {
+  transform: translateY(0);           /* 눌린 느낌을 위해 원래 위치로 */
+  box-shadow: 
+    0 4px 10px rgba(106, 143, 231, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 키보드 포커스 (접근성) */
+button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 4px rgba(106, 143, 231, 0.4),
+    0 6px 15px rgba(106, 143, 231, 0.35);
+}
+
+/* 비활성화 버튼 */
+button:disabled {
+  background: #c7cde6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  opacity: 0.7;
+}
+
+/* 카드 컴포넌트 */
+.card {
+  padding: 2em; /* 카드 내부 여백 */
+}
+
+/* 앱 컨테이너 */
+#app {
+  max-width: 1280px; /* 최대 너비 제한 */
+  margin: 0 auto; /* 가운데 정렬 */
+  padding: 2rem; /* 내부 여백 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+/* 라이트 모드일 때 적용되는 스타일 */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547; /* 라이트 모드 글자 색 */
+    background-color: #ffffff; /* 라이트 모드 배경 */
+  }
+
+  a:hover {
+    color: #747bff; /* 라이트 모드 링크 호버 색 */
+  }
+
+  button {
+    background-color: #f9f9f9; /* 라이트 모드 버튼 배경 */
+  }
+}

@@ -1,0 +1,12 @@
+# Git이 추적하지 않도록 무시할 파일/폴더 목록
+
+# 서버 환경 변수 파일 숨기기
+/server/.env
+
+# Node 모듈 폴더
+/node_modules
+/client/node_modules
+/server/node_modules
+
+# 빌드 및 배포 폴더
+/client/dist
