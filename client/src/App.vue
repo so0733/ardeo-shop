@@ -16,6 +16,7 @@ const showTopButton = ref(false);   // 상단 이동 버튼 표시 상태
 const cartCount = ref(0);           // 장바구니 물품 수
 const searchQuery = ref('');        // 검색어 입력값
 const allProducts = ref<any[]>([]); // 전체 상품 목록
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 // 로그아웃 처리 함수
 const handleLogout = () => {
@@ -184,7 +185,7 @@ onUnmounted(() => {
             <ul v-if="filteredResults.length > 0" class="search-results">
               <li v-for="product in filteredResults" :key="product._id" @click="goToProduct(product.productCode)">
                 <div class="search-item">
-                  <img :src="`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/${product.thumbnail}`" class="search-thumb" alt="상품" />
+                  <img :src="`${API_BASE_URL}/${product.thumbnail}`" class="search-thumb" alt="상품" />
                   <div class="search-info">
                     <span class="search-name">{{ product.name.ko }}</span>
                     <span class="search-price">{{ product.finalPrice.toLocaleString() }}원</span>
