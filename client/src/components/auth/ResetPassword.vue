@@ -9,7 +9,8 @@ const resetData = ref({ newPassword: '', confirmPassword: '' });
 
 // Vue Router 인스턴스
 const router = useRouter();
-const BASE_URL = 'http://localhost:5000/api/auth';  // 백앤드 서버 주소
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+const BASE_URL = `${SERVER_URL}/api/auth`;
 
 // 상태 관리
 const step = ref(1);

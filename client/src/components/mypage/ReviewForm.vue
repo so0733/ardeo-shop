@@ -60,10 +60,10 @@ const submitReview = async () => {
     images.value.forEach(file => formData.append('images', file));
 
     // 리뷰 등록 요청
-    const response = await axios.post('http://localhost:5000/api/review', formData, {
+    const response = await axios.post('/api/review', formData, {
       headers: { 
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data' // 파일 전송 시 필수
       }
     });
 

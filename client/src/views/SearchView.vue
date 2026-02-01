@@ -13,7 +13,7 @@ const fetchSearchResults = async () => {
 
   loading.value = true;
   try {
-    const response = await axios.get(`http://localhost:5000/api/products?search=${query}`);
+    const response = await axios.get(`/api/products?search=${query}`);
     results.value = response.data.products;
   } catch (error) {
     console.error("검색 실패", error);
@@ -37,7 +37,7 @@ onMounted(fetchSearchResults);
     
     <div v-else class="product-grid">
       <div v-for="product in results" :key="product._id" class="product-card">
-        <img :src="`http://localhost:5000/${product.thumbnail}`" />
+        <img :src="`${$serverUrl}/${product.thumbnail}`" />
         <p>{{ product.name.ko }}</p>
         <p>{{ product.finalPrice.toLocaleString() }}원</p>
       </div>

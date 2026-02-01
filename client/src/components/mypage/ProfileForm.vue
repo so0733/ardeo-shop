@@ -155,7 +155,7 @@ const handleUpdate = async () => {
   };
 
 const response = await axios.patch(
-      'http://localhost:5000/api/auth/profile',
+      `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/auth/profile`,
       updateData,
       {
         headers: { Authorization: `Bearer ${token}` }
@@ -230,7 +230,7 @@ const handleChangePassword = async () => {
 
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await axios.patch('http://localhost:5000/api/auth/password', 
+    const response = await axios.patch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/auth/password`,
       {
         currentPassword: passwordForm.currentPassword,
         newPassword: passwordForm.newPassword

@@ -6,6 +6,8 @@ import ProductTable from './ProductTable.vue';
 const products = ref([]);       // 서버에서 가져온 상품 목록
 const isLoading = ref(false);   // 로딩 상태 표시
 
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 // 전체 상품 목록 조회
 const fetchProducts = async () => {
   isLoading.value = true;
@@ -197,7 +199,7 @@ const submitProduct = async () => {
     });
 
     // 서버 전송
-    const response = await axios.post('http://localhost:5000/api/products/complex', formData, { 
+    const response = await axios.post(`${SERVER_URL}/api/products/complex`, formData, { 
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'multipart/form-data'

@@ -19,7 +19,7 @@ const selectedIds = ref<string[]>([]); // 선택된 항목의 ID들
 const router = useRouter();
 
 // 서버 기본 URL 설정
-const SERVER_URL = 'http://localhost:5000';
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
  
 // 이미지 경로를 URL로 변환하는 헬퍼 함수
 const getImageUrl = (path: string | null) => {
@@ -43,7 +43,7 @@ const emitCartUpdate = () => {
 const fetchCart = async () => {
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await axios.get('http://localhost:5000/api/cart', {
+    const response = await axios.get('${SERVER_URL}/api/cart', {
       headers: { Authorization: `Bearer ${token}` }
     });
     cartItems.value = response.data.items || [];
@@ -61,7 +61,7 @@ const updateQty = async (itemId: string, newQty: number) => {
   if (newQty < 1) return;
   try {
     const token = localStorage.getItem('accessToken');
-    await axios.patch('http://localhost:5000/api/cart', 
+    await axios.patch('${SERVER_URL}/api/cart', 
       { itemId, quantity: newQty },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -80,7 +80,7 @@ const deleteItem = async (itemId: string) => {
   if (!confirm('정말 삭제하시겠습니까?')) return;
   try {
     const token = localStorage.getItem('accessToken');
-    await axios.delete(`http://localhost:5000/api/cart/${itemId}`, {
+    await axios.delete(`${SERVER_URL}/api/cart/${itemId}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     cartItems.value = cartItems.value.filter(i => i._id !== itemId);
@@ -126,7 +126,7 @@ const clearCart = async () => {
   try {
     const token = localStorage.getItem('accessToken');
     // 백엔드 API 설계에 따라 엔드포인트는 다를 수 있습니다 (보통 /api/cart)
-    await axios.delete('http://localhost:5000/api/cart/all/clear', {
+    await axios.delete('${SERVER_URL}/api/cart/all/clear', {
       headers: { Authorization: `Bearer ${token}` }
     });
 

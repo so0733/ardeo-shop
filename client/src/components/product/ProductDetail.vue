@@ -7,7 +7,7 @@ const route = useRoute();
 const router = useRouter();
 
 // 서버 기본 URL 설정
-const SERVER_URL = 'http://localhost:5000';
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 const loading = ref(true);        // 로딩 상태
 

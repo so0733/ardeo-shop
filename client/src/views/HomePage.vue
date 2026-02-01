@@ -17,6 +17,9 @@ import img7 from '../assets/mainproduct/wm_img6.png';
 import img8 from '../assets/mainproduct/wm_img5.png';
 import img9 from '../assets/mainproduct/m_img7.png';
 
+// 서버 URL 환경 변수 가져오기
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 const router = useRouter(); 
 
 // 캐러셀 이미지 목록
@@ -144,7 +147,7 @@ const goToEventPage = () => {
     <div class="product-grid">
       <div v-for="item in mdProducts" :key="item.id" class="product-card" @click="goToDetail(item.productCode)">
         <div class="product-image">
-          <img :src="item.imageUrl" :alt="item.name" />
+          <img :src="`${SERVER_URL}/${item.imageUrl}`" :alt="item.name" />
           <div v-if="item.tag" class="trend-tag">{{ item.tag }}</div>
         </div>
 
@@ -179,7 +182,7 @@ const goToEventPage = () => {
     <div class="product-grid">
       <div v-for="item in weeklyProducts" :key="item.id" class="product-card" @click="goToDetail(item.productCode)">
         <div class="product-image">
-          <img :src="item.imageUrl" :alt="item.name" />
+          <img :src="`${SERVER_URL}/${item.imageUrl}`" :alt="item.name" />
           <div v-if="item.tag" class="trend-besttag">{{ item.tag }}</div>
         </div>
 

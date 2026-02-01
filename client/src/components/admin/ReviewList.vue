@@ -13,6 +13,7 @@ interface Review {
   images: string[];
   createdAt: string;
 }
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 const allReviews = ref<Review[]>([]);
 const selectedRating = ref<number | string>('all');
@@ -21,7 +22,7 @@ const loading = ref(true);
 const fetchAllReviews = async () => {
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await axios.get('http://localhost:5000/api/review/admin/all', {
+    const response = await axios.get('${SERVER_URL}/api/review/admin/all', {
       headers: { Authorization: `Bearer ${token}` }
     });
     if (response.data.success) {
@@ -52,7 +53,7 @@ const deleteReview = async (reviewId: string) => {
   if (!confirm('이 리뷰를 삭제하시겠습니까?')) return;
   try {
     const token = localStorage.getItem('accessToken');
-    await axios.delete(`http://localhost:5000/api/review/${reviewId}`, {
+    await axios.delete(`${SERVER_URL}/api/review/${reviewId}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     allReviews.value = allReviews.value.filter(r => r._id !== reviewId);

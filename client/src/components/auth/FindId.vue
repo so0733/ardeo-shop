@@ -13,7 +13,7 @@ const formData = ref({
   phone: ''
 });
 
-const BASE_URL = 'http://localhost:5000/api/auth';  // 백앤드 서버 주소
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/auth`;
 const router = useRouter();
 
 const findMethod = ref<FindMethod>('email');  // 현재 선택된 아이디 찾기 방식 (기본값: 이메일)

@@ -20,7 +20,7 @@ const formData = ref<LoginFormData>({
   password: '',
 });
 
-const BASE_URL = 'http://localhost:5000/api/auth'; // 백엔드 서버 주소
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/auth`;
 const errorMessage = ref('');       // 에러 메시지 상태
 const successMessage = ref('');     // 성공 메시지 상태
 const isLoading = ref(false);       // 로딩 상태

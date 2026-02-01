@@ -46,7 +46,7 @@ const formData = ref<RegisterFormData>({
   },
 });
 
-const BASE_URL = 'http://localhost:5000/api/auth'; // 백엔드 서버 주소
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/auth`;
 const router = useRouter();         // 회원가입 완료 후 로그인 페이지 이동
 
 const isLoading = ref(false);       // 회원가입 진행 중 상태
@@ -105,7 +105,7 @@ const checkDuplicateId = async () => {
   }
 
   try {
-    const response = await axios.post(`http://localhost:5000/api/auth/check-id`, { 
+    const response = await axios.post(`${BASE_URL}/check-id`, {
       userId: formData.value.userId 
     });
 

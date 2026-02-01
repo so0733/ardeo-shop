@@ -21,7 +21,7 @@ const addresses = ref<AddressItem[]>([]); // 배송지 리스트 상태
 const fetchAddresses = async () => {
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await axios.get('http://localhost:5000/api/auth/profile', {
+    const response = await axios.get('/api/auth/profile', {
       headers: { Authorization: `Bearer ${token}` }
     });
     

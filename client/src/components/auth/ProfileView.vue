@@ -15,6 +15,8 @@ const currentPassword = ref('');
 const activeMenu = ref('profile');
 const withdrawPassword = ref(''); // 탈퇴용 비밀번호 입력값
 
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 const form = reactive({
   userId: userStore.user.value?.userId || '', 
   userName: userStore.user.value?.name || '',
@@ -51,7 +53,7 @@ const verifyPassword = async () => {
       return;
     }
 
-    const response = await axios.post('http://localhost:5000/api/auth/verify-password',
+    const response = await axios.post(`${SERVER_URL}/api/auth/verify-password`,
       { password: currentPassword.value },
       { headers: {
           Authorization: `Bearer ${token}` // 토큰을 헤더에 담아 전송

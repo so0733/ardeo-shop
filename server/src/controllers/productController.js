@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');   // Mongoose 불러오기
-const fs = require('fs');               // 파일 삭제를 위한 Node.js 기본 모듈
-
 const Product = require('../models/product/product');               // 상품 모델
 const ProductVariant = require('../models/product/productvariant'); // 옵션 모델
 const Inventory = require('../models/product/inventory');           // 재고 모델
@@ -77,12 +75,6 @@ exports.createFullProduct = async (req, res) => {
 
     } catch (error) {
         await session.abortTransaction();   // 오류 발생 시 전체 롤백
-        
-        if (req.files) {                    // 업로드된 파일 정리
-        req.files.forEach(file => {
-            if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
-        });
-    }
         res.status(500).json({ message: "등록 중 오류 발생", error: error.message });
     } finally {
         session.endSession();               // 세션 종료
@@ -221,24 +213,14 @@ exports.updateProduct = async (req, res) => {
 
                     // 이미지 업데이트 처리
                     if (req.files && req.files.length > 0) {
-                        // 썸네일
                         const newThumb = req.files.find(f => f.fieldname === `variant_${i}_thumb`);
-                        // 갤러리
                         const newGallery = req.files.filter(f => f.fieldname === `variant_${i}_gallery`).map(f => f.path);
 
                         if (newThumb) {
-                            if (existingVariant.images.thumbnail && fs.existsSync(existingVariant.images.thumbnail)) {
-                                fs.unlinkSync(existingVariant.images.thumbnail);
-                            }
                             existingVariant.images.thumbnail = newThumb.path;
                         }
                         
                         if (newGallery.length > 0) {
-                            if (existingVariant.images.gallery && existingVariant.images.gallery.length > 0) {
-                                existingVariant.images.gallery.forEach(path => {
-                                    if (fs.existsSync(path)) fs.unlinkSync(path);
-                                });
-                            }
                             existingVariant.images.gallery = newGallery;
                         }
                     }
@@ -273,10 +255,6 @@ exports.updateProduct = async (req, res) => {
 
     } catch (error) {
         await session.abortTransaction();
-        // 에러 발생 시 업로드된 파일 삭제
-        if (req.files) {
-            req.files.forEach(file => { if (fs.existsSync(file.path)) fs.unlinkSync(file.path); });
-        }
         console.error("Update Error:", error);
         res.status(500).json({ message: error.message || "수정 중 오류 발생" });
     } finally {

@@ -68,7 +68,7 @@ const toggleSearch = async () => {
   isSearchOpen.value = !isSearchOpen.value;
   if (isSearchOpen.value && allProducts.value.length === 0) {
     try {
-      const response = await axios.get('http://localhost:5000/api/products');
+      const response = await axios.get('/api/products');
       allProducts.value = response.data.products;
     } catch (error) {
       console.error("상품 로드 실패", error);
@@ -93,7 +93,7 @@ const fetchCartCount = async () => {
 
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await axios.get('http://localhost:5000/api/cart', {
+    const response = await axios.get('/api/cart', {
       headers: { Authorization: `Bearer ${token}` }
     });
     
@@ -184,8 +184,7 @@ onUnmounted(() => {
             <ul v-if="filteredResults.length > 0" class="search-results">
               <li v-for="product in filteredResults" :key="product._id" @click="goToProduct(product.productCode)">
                 <div class="search-item">
-                  <img :src="`http://localhost:5000/${product.thumbnail}`" class="search-thumb" alt="상품" />
-                  
+                  <img :src="`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/${product.thumbnail}`" class="search-thumb" alt="상품" />
                   <div class="search-info">
                     <span class="search-name">{{ product.name.ko }}</span>
                     <span class="search-price">{{ product.finalPrice.toLocaleString() }}원</span>

@@ -15,6 +15,12 @@ const isEditModalOpen = ref(false);     // 수정 모달 상태
 const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
 const token = localStorage.getItem('accessToken');  // API 인증 토큰
 
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+const getImageUrl = (path: string) => {
+  if (!path) return '';
+  return path.startsWith('http') ? path : `${SERVER_URL}${path}`;
+};
 // 게시글 상세 조회
 const fetchPostDetail = async () => {
   try {
@@ -71,7 +77,7 @@ onMounted(fetchPostDetail);
 
     <div class="post-content">
       <div v-if="post.imageUrl" class="image-box">
-        <img :src="`http://localhost:5000${post.imageUrl}`" alt="첨부 이미지" />
+        <img :src="getImageUrl(post.imageUrl)" alt="첨부 이미지" />
       </div>
       
       <p class="text">{{ post.content }}</p>

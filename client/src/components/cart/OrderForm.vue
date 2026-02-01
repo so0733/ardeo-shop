@@ -26,7 +26,7 @@ const fetchUserProfile = async () => {
     const token = localStorage.getItem('accessToken');
     if (!token) return;
 
-    const response = await axios.get('http://localhost:5000/api/auth/profile', {
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/auth/profile`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -202,7 +202,10 @@ const handlePayment = async () => {
   }
 };
 
-const getImageUrl = (path: string) => path ? `http://localhost:5000/${path.replace(/\\/g, '/')}` : '/default.png';
+const getImageUrl = (path: string) => {
+  const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+  return path ? `${baseURL}/${path.replace(/\\/g, '/')}` : '/default.png';
+};
 </script>
 
 <template>

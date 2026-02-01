@@ -19,7 +19,7 @@ exports.createPost = async (req, res) => {
             category,
             isPrivate: isPrivate === 'true' || isPrivate === true,
             author: req.user.id, // 인증 미들웨어(authMiddleware)에서 받은 사용자 ID
-            imageUrl: req.file ? `/uploads/${req.file.filename}` : null
+            imageUrl: req.file ? req.file.path : null
         });
 
         // DB에 게시글 저장
@@ -117,7 +117,7 @@ exports.updatePost = async (req, res) => {
 
         // 새로운 파일이 업로드된 경우에만 이미지 경로 수정
         if (req.file) {
-            updateData.imageUrl = `/uploads/${req.file.filename}`;
+            updateData.imageUrl = req.file.path;
         }
 
         const updatedPost = await Board.findByIdAndUpdate(id, updateData, { new: true });
