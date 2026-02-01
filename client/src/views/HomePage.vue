@@ -147,7 +147,7 @@ const goToEventPage = () => {
     <div class="product-grid">
       <div v-for="item in mdProducts" :key="item.id" class="product-card" @click="goToDetail(item.productCode)">
         <div class="product-image">
-          <img :src="`${SERVER_URL}/${item.imageUrl}`" :alt="item.name" />
+          <img :src="item.imageUrl" :alt="item.name" />
           <div v-if="item.tag" class="trend-tag">{{ item.tag }}</div>
         </div>
 
@@ -182,7 +182,7 @@ const goToEventPage = () => {
     <div class="product-grid">
       <div v-for="item in weeklyProducts" :key="item.id" class="product-card" @click="goToDetail(item.productCode)">
         <div class="product-image">
-          <img :src="`${SERVER_URL}/${item.imageUrl}`" :alt="item.name" />
+          <img :src="item.imageUrl" :alt="item.name" />
           <div v-if="item.tag" class="trend-besttag">{{ item.tag }}</div>
         </div>
 
