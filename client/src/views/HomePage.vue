@@ -17,9 +17,6 @@ import img7 from '../assets/mainproduct/wm_img6.png';
 import img8 from '../assets/mainproduct/wm_img5.png';
 import img9 from '../assets/mainproduct/m_img7.png';
 
-// 서버 URL 환경 변수 가져오기
-const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-
 const router = useRouter(); 
 
 // 캐러셀 이미지 목록
