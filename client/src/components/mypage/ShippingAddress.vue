@@ -14,14 +14,14 @@ interface AddressItem {   // 배송지 타입 정의
     detailAddress: string;
   };
 }
-
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 const addresses = ref<AddressItem[]>([]); // 배송지 리스트 상태
 
 // 사용자 배송지 목록 조회
 const fetchAddresses = async () => {
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await axios.get('/api/auth/profile', {
+    const response = await axios.get(`${SERVER_URL}/api/auth/profile`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     

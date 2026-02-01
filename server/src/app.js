@@ -14,7 +14,10 @@ connectDB();            //  MongoDB 연결 (비동기 처리)
 
 const corsOptions = {
     // 프론트엔드 주소로 변경 [Vite 기본 포트:5173]
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: [
+      'https://ardeo-shop.vercel.app', 
+      'http://localhost:5173'
+    ],
     credentials: true,  // 쿠키 포함 요청 허용
     methods: ['GET', 'POST', 'PATCH', 'DELETE'] // 허용 HTTP 메서드
 };

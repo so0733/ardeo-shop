@@ -9,6 +9,7 @@ const props = defineProps<{ // 부모 컴포넌트로부터 받는 props
 
 // 부모 컴포넌트로 이벤트 전달
 const emit = defineEmits(['close', 'submitted']);
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 const rating = ref(5);  // 별점 상태
 const content = ref('');  // 리뷰 내용 상태
@@ -60,7 +61,7 @@ const submitReview = async () => {
     images.value.forEach(file => formData.append('images', file));
 
     // 리뷰 등록 요청
-    const response = await axios.post('/api/review', formData, {
+    const response = await axios.post(`${SERVER_URL}/api/review`, formData, {
       headers: { 
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data' // 파일 전송 시 필수

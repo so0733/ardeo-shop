@@ -174,7 +174,7 @@ const removeItem = (index: number) => {
 // 장바구니 공통 저장 로직
 const saveToCart = async () => {
   for (const item of selectedItems.value) {
-    await axios.post('http://localhost:5000/api/cart', {
+    await axios.post(`${SERVER_URL}/api/cart`, {
       productId: product.value._id,
       variantId: item.variantId,
       size: item.size,
@@ -258,7 +258,7 @@ const maskUserId = (user: any) => {
 onMounted(async () => {
   try {
     const productCode = route.params.id;
-    const response = await axios.get(`http://localhost:5000/api/products/${productCode}`);
+    const response = await axios.get(`${SERVER_URL}/api/products/${productCode}`);
     product.value = response.data.product;
     variants.value = response.data.variants;
 

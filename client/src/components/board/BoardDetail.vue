@@ -19,8 +19,11 @@ const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 const getImageUrl = (path: string) => {
   if (!path) return '';
-  return path.startsWith('http') ? path : `${SERVER_URL}${path}`;
+  if (path.startsWith('http')) return path;
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${SERVER_URL}${normalizedPath}`;
 };
+
 // 게시글 상세 조회
 const fetchPostDetail = async () => {
   try {

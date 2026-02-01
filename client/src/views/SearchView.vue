@@ -1,20 +1,35 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 
 const route = useRoute();
-const results = ref([]);
+const router = useRouter();
+
+const results = ref<any[]>([]);
 const loading = ref(false);
+const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+const getImageUrl = (path: string) => {
+  if (!path) return '/default-image.png';
+  return path.replace(/\\/g, '/').startsWith('http') 
+    ? path 
+    : `${SERVER_URL}/${path.replace(/\\/g, '/')}`;
+};
 
 const fetchSearchResults = async () => {
   const query = route.query.q;
-  if (!query) return;
+  if (!query) {
+    results.value = [];
+    return;
+  }
 
   loading.value = true;
   try {
-    const response = await axios.get(`/api/products?search=${query}`);
-    results.value = response.data.products;
+    const response = await axios.get(`${SERVER_URL}/api/products`, {
+      params: { search: query }
+    });
+    results.value = response.data.products || [];
   } catch (error) {
     console.error("검색 실패", error);
   } finally {
@@ -22,24 +37,40 @@ const fetchSearchResults = async () => {
   }
 };
 
-// URL의 쿼리 파라미터가 변할 때마다 다시 검색
-watch(() => route.query.q, fetchSearchResults);
+const goToDetail = (productCode: string) => {
+  router.push(`/product/${productCode}`);
+};
 
+watch(() => route.query.q, fetchSearchResults);
 onMounted(fetchSearchResults);
 </script>
 
 <template>
   <div class="search-page">
-    <h2>'{{ route.query.q }}' 검색 결과 ({{ results.length }})</h2>
+    <div class="search-header">
+      <h2>'{{ route.query.q }}' 검색 결과 <span class="count">({{ results.length }})</span></h2>
+    </div>
     
-    <div v-if="loading" class="loading">검색 중...</div>
-    <div v-else-if="results.length === 0" class="empty">검색 결과가 없습니다.</div>
+    <div v-if="loading" class="state-msg">검색 결과 로딩 중...</div>
+    <div v-else-if="results.length === 0" class="state-msg empty">
+      <p>검색 결과가 없습니다.</p>
+      <span>다른 검색어를 입력해 보세요.</span>
+    </div>
     
     <div v-else class="product-grid">
-      <div v-for="product in results" :key="product._id" class="product-card">
-        <img :src="`${$serverUrl}/${product.thumbnail}`" />
-        <p>{{ product.name.ko }}</p>
-        <p>{{ product.finalPrice.toLocaleString() }}원</p>
+      <div 
+        v-for="product in results" 
+        :key="product._id" 
+        class="product-card"
+        @click="goToDetail(product.productCode)"
+      >
+        <div class="img-box">
+          <img :src="getImageUrl(product.thumbnail)" :alt="product.name.ko" />
+        </div>
+        <div class="info-box">
+          <p class="name">{{ product.name.ko }}</p>
+          <p class="price">{{ product.finalPrice?.toLocaleString() }}원</p>
+        </div>
       </div>
     </div>
   </div>
