@@ -213,7 +213,7 @@ ardeo-shop
 2026.01.31: 서비스 배포 (Vercel/Render) 및 이미지 경로/CORS 트러블슈팅
 
 </details>
----
+
 
 ## 🎨 Design System
 
@@ -268,4 +268,5 @@ npm run dev
 👉 **[Ardeo Shop Project 상세 기록 보기 (Notion)](https://www.notion.so/so0733/Ardeo-Shop-Project-2b8bc31f9013805dbcdae7089c4f0124?source=copy_link)**
 
 ---
+
 
