@@ -7,7 +7,7 @@ const route = useRoute();
 const router = useRouter();
 
 // 서버 기본 URL 설정
-const SERVER_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+const SERVER_URL = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000').replace(/\/$/, '');
 
 const loading = ref(true);        // 로딩 상태
 
@@ -115,7 +115,7 @@ const getImageUrl = (path: string | null) => {
   // 이미 전체 URL 형태라면 그대로 반환, 아니라면 서버 URL과 결합
   return normalizedPath.startsWith('http') 
     ? normalizedPath 
-    : `${SERVER_URL}/${normalizedPath}`;
+    : `${SERVER_URL}/${normalizedPath.replace(/^\//, '')}`;
 };
 
 // 색상을 변경할 때마다 메인 이미지를 해당 색상의 썸네일로 초기화
