@@ -22,7 +22,7 @@ const loading = ref(true);
 const fetchAllReviews = async () => {
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await axios.get('${SERVER_URL}/api/review/admin/all', {
+    const response = await axios.get(`${SERVER_URL}/api/review/admin/all`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     if (response.data.success) {

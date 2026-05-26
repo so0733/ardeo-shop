@@ -43,7 +43,7 @@ const selectedProduct = ref<string>('');  // 현재 리뷰 모달에서 선택�
 const fetchOrders = async () => {
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/orders/my`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}api/orders/my`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     

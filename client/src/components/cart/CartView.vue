@@ -43,7 +43,7 @@ const emitCartUpdate = () => {
 const fetchCart = async () => {
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await axios.get('${SERVER_URL}/api/cart', {
+    const response = await axios.get(`${SERVER_URL}/api/cart`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     cartItems.value = response.data.items || [];
@@ -61,7 +61,7 @@ const updateQty = async (itemId: string, newQty: number) => {
   if (newQty < 1) return;
   try {
     const token = localStorage.getItem('accessToken');
-    await axios.patch('${SERVER_URL}/api/cart', 
+    await axios.patch(`${SERVER_URL}/api/cart`, 
       { itemId, quantity: newQty },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -126,7 +126,7 @@ const clearCart = async () => {
   try {
     const token = localStorage.getItem('accessToken');
     // 백엔드 API 설계에 따라 엔드포인트는 다를 수 있습니다 (보통 /api/cart)
-    await axios.delete('${SERVER_URL}/api/cart/all/clear', {
+    await axios.delete(`${SERVER_URL}/api/cart/all/clear`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
